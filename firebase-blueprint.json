@@ -1,0 +1,86 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "The root profile document for an authenticated user.",
+      "type": "object",
+      "properties": {
+        "stats": {
+          "type": "object",
+          "properties": {
+            "level": { "type": "integer" },
+            "experience": { "type": "integer" },
+            "crystals": { "type": "integer" },
+            "completed_goals": { "type": "integer" }
+          },
+          "required": ["level", "experience", "crystals", "completed_goals"]
+        },
+        "bias": {
+          "type": "string",
+          "enum": ["None", "Karina", "Winter", "Giselle", "Ningning"]
+        },
+        "customName": { "type": "string" },
+        "customPhoto": { "type": "string" },
+        "customBackground": { "type": "string" },
+        "roomAtmosphere": { "type": "string" },
+        "directive": { "type": "string" },
+        "frequency": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["stats", "bias"]
+    },
+    "Goal": {
+      "title": "Goal Directive",
+      "description": "A specific mission or goal for the user.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "title": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["pulse", "orbit", "galaxy"]
+        },
+        "completed": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "title", "type", "completed"]
+    },
+    "JournalEntry": {
+      "title": "Chronicle Entry",
+      "description": "A captured moment in time, archived in the chronicle.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "content": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "location": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "coords": { "type": "string" }
+          }
+        },
+        "lyrics_en": { "type": "string" },
+        "lyrics_zh": { "type": "string" },
+        "mood": { "type": "string" },
+        "maskPath": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "content"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Storage for user profile metadata and stats."
+    },
+    "/users/{userId}/goals/{goalId}": {
+      "schema": "Goal",
+      "description": "User-specific goals and directives."
+    },
+    "/users/{userId}/entries/{entryId}": {
+      "schema": "JournalEntry",
+      "description": "Archived memories and chronicle logs."
+    }
+  }
+}

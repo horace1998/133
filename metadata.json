@@ -1,0 +1,6 @@
+{
+  "name": "SYNKIFY",
+  "description": "An editorial spatial journaling and ritual dashboard concept synced with aespa's KWANGYA aesthetic, featuring neural portal syncing and cinematic moments capture.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": []
+}
